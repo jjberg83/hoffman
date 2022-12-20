@@ -2,6 +2,7 @@ import operator
 
 # theInput = input("Write your message: ")
 theInput = "bccabbddaeccbbaeddcc"
+#theInput = "BCAADDDCCACACAC"
 
 # Create sorted dictionary with all the symbols from the input above
 # and counts of each symbol 
@@ -18,8 +19,6 @@ for symbol in theInput:
 countedSymbols = {k: v for k, v in sorted(countedSymbols.items(), key=lambda item: item[1])}
 
 print(countedSymbols)
-print(type(countedSymbols))
-print(len(countedSymbols))
 
 # Create nodes based on info from the sorted dictionary
 # and build a tree from them, starting at the bottom
@@ -31,7 +30,9 @@ class Node:
 		self.leftChild = leftChild
 		self.rightChild = rightChild 
 
-	
+	def children(self):
+		return self.leftChild, self.rightChild
+
 	def printTree(self):
 		if self.leftChild is not None:
 			self.leftChild.printTree()
@@ -47,6 +48,19 @@ class Node:
 			self.rightChild.returnPathOf(theSymbol)
 		else:
 			return "It stops here!"	
+
+	# this method prints out a dictionary with all the codes
+	# for all the symbols used in the input
+	# found (but updated) it from:
+	# https://favtutor.com/blogs/huffman-coding
+	def symbolCodes(self, binString=''):
+		if type(self.symbol) is str:
+			return {self.symbol: binString}
+		(l, r) = self.children()
+		d = dict()
+		d.update(l.symbolCodes(binString + '0'))
+		d.update(r.symbolCodes(binString + '1'))
+		return d
 	
 # the initial list, starting with the nodes from the dictionary
 buildingBlocksForTree = []
@@ -66,7 +80,7 @@ while (len(buildingBlocksForTree) > 1):
 	buildingBlocksForTree.append(parentNode)
 	buildingBlocksForTree.sort(key=operator.attrgetter('count'))
 
-buildingBlocksForTree[0].printTree()
-print(buildingBlocksForTree[0].returnPathOf("a"))
-print(buildingBlocksForTree[0].returnPathOf("j"))
+# buildingBlocksForTree[0].printTree()
+print(buildingBlocksForTree[0].children())
+print(buildingBlocksForTree[0].symbolCodes())
 
