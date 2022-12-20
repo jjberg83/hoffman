@@ -39,15 +39,6 @@ class Node:
 		print(self.symbol, self.count),
 		if self.rightChild is not None:
 			self.rightChild.printTree()
-	
-	def returnPathOf(self, theSymbol):
-		path = ""
-		if self.leftChild is not None:
-			self.leftChild.returnPathOf(theSymbol)
-		if self.rightChild is not None:
-			self.rightChild.returnPathOf(theSymbol)
-		else:
-			return "It stops here!"	
 
 	# this method prints out a dictionary with all the codes
 	# for all the symbols used in the input
@@ -80,7 +71,6 @@ while (len(buildingBlocksForTree) > 1):
 	buildingBlocksForTree.append(parentNode)
 	buildingBlocksForTree.sort(key=operator.attrgetter('count'))
 
-# buildingBlocksForTree[0].printTree()
-print(buildingBlocksForTree[0].children())
+
 print(buildingBlocksForTree[0].symbolCodes())
 
