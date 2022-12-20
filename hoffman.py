@@ -3,6 +3,7 @@ import operator
 # theInput = input("Write your message: ")
 theInput = "bccabbddaeccbbaeddcc"
 #theInput = "BCAADDDCCACACAC"
+# test comment
 
 # Create sorted dictionary with all the symbols from the input above
 # and counts of each symbol 
