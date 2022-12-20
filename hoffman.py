@@ -18,6 +18,8 @@ for symbol in theInput:
 countedSymbols = {k: v for k, v in sorted(countedSymbols.items(), key=lambda item: item[1])}
 
 print(countedSymbols)
+print(type(countedSymbols))
+print(len(countedSymbols))
 
 # Create nodes based on info from the sorted dictionary
 # and build a tree from them, starting at the bottom
@@ -36,6 +38,15 @@ class Node:
 		print(self.symbol, self.count),
 		if self.rightChild is not None:
 			self.rightChild.printTree()
+	
+	def returnPathOf(self, theSymbol):
+		path = ""
+		if self.leftChild is not None:
+			self.leftChild.returnPathOf(theSymbol)
+		if self.rightChild is not None:
+			self.rightChild.returnPathOf(theSymbol)
+		else:
+			return "It stops here!"	
 	
 # the initial list, starting with the nodes from the dictionary
 buildingBlocksForTree = []
@@ -56,3 +67,6 @@ while (len(buildingBlocksForTree) > 1):
 	buildingBlocksForTree.sort(key=operator.attrgetter('count'))
 
 buildingBlocksForTree[0].printTree()
+print(buildingBlocksForTree[0].returnPathOf("a"))
+print(buildingBlocksForTree[0].returnPathOf("j"))
+
